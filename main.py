@@ -1,14 +1,10 @@
 """
-End-Term Project: Weather Data Analysis and Visualization
-Dataset: weather.csv
-
-This script executes the complete data cleaning, analysis, and visualization pipeline:
-- Step 0: Data Cleaning (missing values, duplicates, outliers, datetime handling)
-- Task 1: Average temperature for each month
-- Task 2: Region with the most precipitation
-- Task 3: Temperature trends for selected region (Almaty)
-- Task 4: Correlation analysis between temperature, wind speed, and precipitation
-- Task 5: Day with the most stable temperature for each region
+Step 0: Data Cleaning (missing values, duplicates, outliers, datetime handling)
+Task 1: Average temperature for each month
+Task 2: Region with the most precipitation
+Task 3: Temperature trends for selected region (Almaty)
+Task 4: Correlation analysis between temperature, wind speed, and precipitation
+Task 5: Day with the most stable temperature for each region
 """
 
 import os
@@ -23,14 +19,14 @@ OUTPUT_DIR = "figures"
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 
-def step_0_data_cleaning(csv_path="weather.csv"):
+def step0(csv_path="weather.csv"):
     """
-    - Load weather.csv
-    - Display head() and info()
-    - Check and clean missing values
-    - Check and remove duplicate rows
-    - Check for outliers using describe() and boxplots
-    - Convert date to datetime and extract month features
+    Load weather.csv
+    Display head() and info()
+    Check and clean missing values
+    Check and remove duplicate rows
+    Check for outliers using describe() and boxplots
+    Convert date to datetime and extract month features
     """
     print("=" * 80)
     print("STEP 0: SETUP & DATA CLEANING")
@@ -105,10 +101,10 @@ def step_0_data_cleaning(csv_path="weather.csv"):
     return df
 
 
-def task_1_monthly_temperature(df):
+def task1(df):
     """
-    - Group by month and calculate average temperature_c
-    - Print table and plot bar/line chart
+    Group by month and calculate average temperature
+    Print table and plot bar/line chart
     """
     print("\n" + "=" * 80)
     print("TASK 1: AVERAGE TEMPERATURE FOR EACH MONTH")
@@ -156,11 +152,11 @@ def task_1_monthly_temperature(df):
     return monthly_temp
 
 
-def task_2_precipitation_by_region(df):
+def task2(df):
     """
-    - Group by region and sum precipitation_mm
-    - Sort from highest to lowest and print
-    - Bar chart comparing total precipitation across regions
+    Group by region and sum precipitation
+    Sort from highest to lowest and print
+    Bar chart comparing total precipitation across regions
     """
     print("\n" + "=" * 80)
     print("TASK 2: REGION WITH THE MOST PRECIPITATION")
@@ -209,10 +205,10 @@ def task_2_precipitation_by_region(df):
     return region_precip_sorted
 
 
-def task_3_temperature_trends(df, region_name="Almaty"):
+def task3(df, region_name="Almaty"):
     """
-    - Filter dataset for specific region
-    - Line chart of temperature_c over date with title, labels, and grid
+    Filter dataset for specific region
+    Line chart of temperature_c over date with title, labels, and grid
     """
     print("\n" + "=" * 80)
     print(f"TASK 3: TEMPERATURE TRENDS FOR SELECTED REGION ({region_name.upper()})")
@@ -264,11 +260,11 @@ def task_3_temperature_trends(df, region_name="Almaty"):
     return reg_df
 
 
-def task_4_correlation_analysis(df):
+def task4(df):
     """
-    - Select numeric columns: temperature_c, precipitation_mm, wind_speed_kmh
-    - Calculate and print correlation matrix
-    - Seaborn heatmap with annot=True
+    Select numeric columns: temperature, precipitation, wind_speed
+    Calculate and print correlation matrix
+    Seaborn heatmap with annot=True
     """
     print("\n" + "=" * 80)
     print("TASK 4: CORRELATION ANALYSIS")
@@ -306,10 +302,9 @@ def task_4_correlation_analysis(df):
     return corr_matrix
 
 
-def task_5_stable_temperature_day(df):
+def task5(df):
     """
-    - Defined as the date with the minimal day-to-day absolute temperature difference:
-      abs(temperature_c(t) - temperature_c(t-1))
+    Defined as the date with the minimal day-to-day absolute temperature difference:
     """
     print("\n" + "=" * 80)
     print("TASK 5: DAY WITH THE MOST STABLE TEMPERATURE IN EACH REGION")
@@ -350,12 +345,12 @@ def task_5_stable_temperature_day(df):
 def main():
     print("Starting End-Term Weather Analysis Project Execution...\n")
 
-    df = step_0_data_cleaning("weather.csv")
-    task_1_monthly_temperature(df)
-    task_2_precipitation_by_region(df)
-    task_3_temperature_trends(df, region_name="Almaty")
-    task_4_correlation_analysis(df)
-    task_5_stable_temperature_day(df)
+    df = step0("weather.csv")
+    task1(df)
+    task2(df)
+    task3(df, region_name="Almaty")
+    task4(df)
+    task5(df)
 
     print("\n" + "=" * 80)
     print("All tasks completed successfully! All charts saved in 'figures/' directory.")
